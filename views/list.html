@@ -1,0 +1,22 @@
+<%- include('header.html') -%>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">当前栏目<%=category0.name%></h2>
+        <div class="row row-cols-4">
+            <% articles2.forEach(articles3 =>{ %>
+                <div class="col my-3">
+                    <div class="card h-100">
+                        <img src="holder.js/100px150" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= articles3.title %></h5>
+                            <p class="card-text"><small class="text-muted"><%= articles3.time.toLocaleString() %></small></p>
+                            <p class="card-text"><%= articles3.content.replace(/<[^>]+>/g,'').substring(0,100) %></p>
+                            <a href="/article/<%=articles3.id%>" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+           <% }) %>
+        </div>
+    </div>
+
+    <%- include('footer.html') -%>
