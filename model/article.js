@@ -128,4 +128,42 @@ module.exports= class Article extends require ('./model'){
 
         })
     }
+    /**
+     * 
+     * 获取文章总量
+     */
+     
+     static getCount() {
+        return new Promise((resolve,reject)=>{
+            let sql ='SELECT COUNT(1) AS count  FROM article'
+            this.query(sql).then(results=>{
+                resolve(results[0].count)
+
+            }).catch(err=>{
+                console.log(`获取文章总量失败：${err.message}`)
+                reject(err)
+            })
+        })
+
+    }
+    /**
+     * 
+     * @param {integer} start 起始索引
+     * @param {integer} size 查询条目数
+     * @returns 
+     */
+     static getPage(start,size) {
+        return new Promise((resolve,reject) => {
+            let sql ='SELECT id,title,thumbnail,hot FROM article ORDER BY time DESC LIMIT ?,?'
+            this.query(sql,[start,size]).then(results=>{
+                resolve(results)
+
+            }).catch(err=>{
+                console.log(`获取指定页文章列表失败：${err.message}`)
+                reject(err)
+            })
+        })
+
+    }
+    
     }

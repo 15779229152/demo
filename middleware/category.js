@@ -28,5 +28,16 @@ const Category = require('../model/category')
     }).catch(err => {
         next(err)
     })
+   },
+    /***
+     * 获取总栏目数
+     */
+   gitCount:(req,res,next)=>{
+       Category.getCount().then(results=>{
+           req.categoryTotal = results
+           next()
+       }).catch(err=>{
+           next(err)
+       })
    }
 }

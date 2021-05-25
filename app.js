@@ -37,7 +37,14 @@ app.use('/admin/?*',require('./middleware/auth').allowToAdmin)
 
 //调用后台首页
 app.use(/\/admin\/(index)?/,require('./router/admin/index'))
-
+//调用后台文章管理
+app.use('/admin/article',require('./router/admin/article'))
+//调用后台栏目管理
+app.use('/admin/category',require('./router/admin/category'))
+//调用后台日志管理
+app.use('/admin/log',require('./router/admin/log'))
+//调用后台账户管理
+app.use('/admin/account',require('./router/admin/account'))
 
 //退出操作
 app.get('/user/logout',(req,res)=>{

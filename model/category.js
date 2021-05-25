@@ -40,5 +40,23 @@
         })
 
     }
+    /**
+     * 
+     * 获取栏目总量
+     */
+     
+     static getCount() {
+        return new Promise((resolve,reject)=>{
+            let sql ='SELECT COUNT(1) AS count  FROM category'
+            this.query(sql).then(results=>{
+                resolve(results[0].count)
+
+            }).catch(err=>{
+                console.log(`获取类目总量失败：${err.message}`)
+                reject(err)
+            })
+        })
+
+    }
     
 }
