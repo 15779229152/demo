@@ -27,23 +27,23 @@
                                 <h6 class="mb-0 align-self-center">文章列表</h6>
                             </div>
                             <div class="card-body">
-                                <form action="./index.html" class="form-inline mb-3" method="get">
+                                <form action="/admin/article/" class="form-inline mb-3" method="get">
+                                    <input type="hidden" name="p" value="<%= page.p %>">
                                     <div class="form-group">
                                         <label for="category">类目：</label>
                                         <select name="category" id="category" class="form-control-sm">
-                                            <option value="0">全部</option>
-                                            <option value="1">类目一</option>
-                                            <option value="1">类目二</option>
-                                            <option value="1">类目三</option>
-                                            <option value="1">类目四</option>
+                                            <option value="-1">全部</option>
+                                            <% categories.forEach(category => { %>
+                                                <option value="<%= category.id %>"<%= category_id==category.id ? 'selected' : '' %>><%= category.name %></option>
+                                            <% }) %>
                                         </select>
                                     </div>
                                     <div class="form-group ml-3">
                                         <label for="hot">热门：</label>
                                         <select name="hot" id="hot" class="form-control-sm">
-                                            <option value="0">全部</option>
-                                            <option value="1">热门</option>
-                                            <option value="2">非热门</option>
+                                            <option value="-1">全部</option>
+                                            <option value="1" <%= hot==1 ? 'selected': '' %>>热门</option>
+                                            <option value="0" <%= hot==0 ? 'selected': '' %>>非热门</option>
                                         </select>
                                     </div>
                                     <div class="from-group ml-3">
@@ -95,13 +95,13 @@
                                     <div class="align-self-center">共 <%= page.count %>  条 / 共 <%= page.total %>  页 / 第 <%= page.p %>  页</div>
                                     <ul class="pagination mb-0">
                                         <% if (page.p !=1) { %>
-                                            <li class="page-item"><a class="page-link" href="/admin/article?p=<%= page.p -1 %>">上一页</a></li>
+                                            <li class="page-item"><a class="page-link" href="/admin/article?p=<%= page.p -1 %>&category_id<%= category_id %>&hot<%=hot  %>">上一页</a></li>
                                         <% } %>
                                         <% for( let index = 1; index <= page.total; index++ ) { %>
-                                            <li class="page-item"><a class="page-link" href="/admin/article?p=<%= index %> "><%= index %> </a></li>
+                                            <li class="page-item"><a class="page-link" href="/admin/article?p=<%= index %>&category_id<%= category_id %>&hot<%=hot  %> "><%= index %> </a></li>
                                         <% } %>
                                         <% if (page.p !=page.total) { %>
-                                            <li class="page-item"><a class="page-link" href="/admin/article?p=<%= parseFloat(page.p)+1%>">下一页</a></li>
+                                            <li class="page-item"><a class="page-link" href="/admin/article?p=<%= parseFloat(page.p)+1   %>&category_id<%= category_id %>&hot<%=hot  %>">下一页</a></li>
                                         <% } %>
                                         
                                     </ul>

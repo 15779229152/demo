@@ -133,9 +133,14 @@ module.exports= class Article extends require ('./model'){
      * 获取文章总量
      */
      
-     static getCount() {
+     static getCount(category_id,hot) {
         return new Promise((resolve,reject)=>{
-            let sql ='SELECT COUNT(1) AS count  FROM article'
+            let sql ='SELECT COUNT(1) AS count  FROM article WHERE 1=1'
+
+
+            sql += category_id != -1 && category_id ? ` AND  category_id=${category_id}` : '' //若id 不等于-1 且有值 则 id为传的值 否则为空
+            sql += hot != -1 && hot ? ` AND hot=${hot}` : ''  //若hot 不等于-1 且有值 则 hot为传的值 否则为空
+
             this.query(sql).then(results=>{
                 resolve(results[0].count)
 
@@ -152,14 +157,19 @@ module.exports= class Article extends require ('./model'){
      * @param {integer} size 查询条目数
      * @returns 
      */
-     static getPage(start,size) {
+     static getPage(start,size,category_id,hot) {
         return new Promise((resolve,reject) => {
-            let sql ='SELECT id,title,thumbnail,hot FROM article ORDER BY time DESC LIMIT ?,?'
+            let sql ='SELECT id,title,thumbnail,hot FROM article WHERE 1=1'// ORDER BY time DESC LIMIT ?,?
+
+            sql += category_id != -1 && category_id ? ` AND  category_id=${category_id}` : '' //若id 不等于-1 且有值 则 id为传的值 否则为空
+            sql += hot != -1 && hot ? ` AND hot=${hot}` : ''  //若hot 不等于-1 且有值 则 hot为传的值 否则为空
+
+            sql += ' ORDER BY time DESC LIMIT ?,?'
             this.query(sql,[start,size]).then(results=>{
                 resolve(results)
 
             }).catch(err=>{
-                console.log(`获取指定页文章列表失败：${err.message}`)
+                console.log(`获取指定页文章列表失败：${err.message}`) 
                 reject(err)
             })
         })

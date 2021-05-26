@@ -3,14 +3,15 @@
  */
 const express = require('express')
 const article = require('../../middleware/article')
-const { getNextChangeId } = require('../../model/article')
+// const { getNextChangeId } = require('../../model/article')
+const category = require('../../middleware/category')
 
 
 const articleApp =express()
 //article.gitCount 为之前获取文章总量所用方法 用于在分页功能上显示总文章数
 articleApp.get('/',article.gitCount, (req,res,next)=>{
     let {articleTotal}= req
-    let size = 5 //每页显示五条
+    let size = 3 //每页显示五条
     req.page = {}
     req.page.count = articleTotal
     req.page.total = Math.ceil( req.page.count / size)//页数
@@ -24,10 +25,12 @@ articleApp.get('/',article.gitCount, (req,res,next)=>{
 
     next()
     
-},article.getPage,(req,res)=>{
-    let {user,pageList,page} = req
+},[article.getPage,category.getList],(req,res)=>{
+    let {user,pageList,page,categories} = req
+    let{category_id,hot}= req.query
+
     page.list = pageList
-    res.render('admin/article/index',{user:user,page:page})
+    res.render('admin/article/index',{user:user,page:page,categories:categories,category_id:category_id,hot:hot})
 })
 
 

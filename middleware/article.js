@@ -107,7 +107,7 @@ module.exports={
      * 获取总文章量
      */
    gitCount:(req,res,next)=>{
-       Article.getCount().then(results=>{
+       Article.getCount(req.query.category_id,req.query.hot).then(results=>{
            req.articleTotal = results
            next()
        }).catch(err=>{
@@ -118,7 +118,7 @@ module.exports={
      * 获取指定页文章列表
      */
     getPage : (req,res,next)=>{
-        Article.getPage(res.start,res.size).then(results=>{
+        Article.getPage(res.start,res.size,req.query.category_id,req.query.hot).then(results=>{
             req.pageList = results
             next()
         }).catch(err => {
