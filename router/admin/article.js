@@ -3,7 +3,6 @@
  */
 const express = require('express')
 const article = require('../../middleware/article')
-// const { getNextChangeId } = require('../../model/article')
 const category = require('../../middleware/category')
 
 
@@ -19,18 +18,18 @@ articleApp.get('/',article.gitCount, (req,res,next)=>{
     req.page.p =  req.page.p >  req.page.total ?  req.page.tolal :  req.page.p//如果大于总页码是则等于总页码数否则为req.query.p
     req.page.p= req.page.p < 1 ? 1 :  req.page.p//若小于1的话则显示1
 
-    res.start = (req.page.p -1) * size
+    res.start = (req.page.p - 1) * size
     res.size = size
 
 
     next()
     
 },[article.getPage,category.getList],(req,res)=>{
-    let {user,pageList,page,categories} = req
-    let{category_id,hot}= req.query
+    let { user, pageList, page, categories } = req
+    let {category_id,hot} = req.query
 
     page.list = pageList
-    res.render('admin/article/index',{user:user,page:page,categories:categories,category_id:category_id,hot:hot})
+    res.render('admin/article/index',{user: user, page: page, categories: categories, category_id: category_id, hot: hot})
 })
 
 

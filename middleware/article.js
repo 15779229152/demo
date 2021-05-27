@@ -118,7 +118,7 @@ module.exports={
      * 获取指定页文章列表
      */
     getPage : (req,res,next)=>{
-        Article.getPage(res.start,res.size,req.query.category_id,req.query.hot).then(results=>{
+        Article.getPage(res.start,res.size, req.query.category_id,req.query.hot).then(results=>{
             req.pageList = results
             next()
         }).catch(err => {

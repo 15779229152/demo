@@ -31,10 +31,10 @@
                                     <input type="hidden" name="p" value="<%= page.p %>">
                                     <div class="form-group">
                                         <label for="category">类目：</label>
-                                        <select name="category" id="category" class="form-control-sm">
+                                        <select name="category_id" id="category" class="form-control-sm">
                                             <option value="-1">全部</option>
                                             <% categories.forEach(category => { %>
-                                                <option value="<%= category.id %>"<%= category_id==category.id ? 'selected' : '' %>><%= category.name %></option>
+                                                <option value="<%= category.id %>"<%= category_id==category.id ? 'selected' : '' %> ><%= category.name %></option>
                                             <% }) %>
                                         </select>
                                     </div>
@@ -42,8 +42,8 @@
                                         <label for="hot">热门：</label>
                                         <select name="hot" id="hot" class="form-control-sm">
                                             <option value="-1">全部</option>
-                                            <option value="1" <%= hot==1 ? 'selected': '' %>>热门</option>
-                                            <option value="0" <%= hot==0 ? 'selected': '' %>>非热门</option>
+                                            <option value="1" <%= hot==1 ? 'selected' : '' %> >热门</option>
+                                            <option value="0" <%= hot==0 ? 'selected' : '' %> >非热门</option>
                                         </select>
                                     </div>
                                     <div class="from-group ml-3">
