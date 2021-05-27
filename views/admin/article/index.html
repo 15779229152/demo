@@ -77,8 +77,12 @@
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="hot1"<%= article.hot?'checked':'' %> >
-                                                        <label class="custom-control-label" for="hot1"></label>
+                                                        <input type="checkbox" class="custom-control-input" 
+                                                        value="<%=article.id %>" id="hot<%=article.id%>"
+                                                        <%=article.hot?'checked':'' %> 
+                                                        onchange="sethot(this.value,this.checked)">
+                                                        <label class="custom-control-label" 
+                                                        for="hot<%=article.id%>"></label>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -120,7 +124,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
     <script src="https://gw.alipayobjects.com/os/lib/antv/g2/3.5.12/dist/g2.min.js"></script>
     <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.2/dist/data-set.min.js"></script>
-    <script src="../static/js/public.js"></script>
+    <script src="/admin/js/public.js"></script>
+    <script>
+        function sethot(id,hot){
+            $.get('/admin/article/sethot',{id:id,hot:hot ? 1 : 0},function (res){
+                if(res.code == 1) {
+                    showToasts('成功','设置热门成功')
+                }else{
+                    showToasts('失败','设置热门失败')
+                }
+            })
+        }
+    </script>
 </body>
+
 
 </html>

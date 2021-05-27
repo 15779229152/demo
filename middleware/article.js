@@ -125,5 +125,17 @@ module.exports={
             next(err)
         })
     },
+   /***
+     * 更改热门
+     */
+    setHot : (req,res,next)=>{
+        let {id,hot} = req.query
+        Article.setHot(id,hot).then(results=>{
+            req.affectedRows = results
+            next()
+        }).catch(err => {
+            next(err)
+        })
+    }
 }
  

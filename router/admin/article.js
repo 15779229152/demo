@@ -32,7 +32,13 @@ articleApp.get('/',article.gitCount, (req,res,next)=>{
     res.render('admin/article/index',{user: user, page: page, categories: categories, category_id: category_id, hot: hot})
 })
 
-
+articleApp.get('/sethot',[article.setHot],(req,res)=>{
+    if(req.affectedRows > 0){//若取得的受影响的行列数大于零则返回json(成功)若无被影响数列则返回json(失败)
+        res.json({ code: 1, msg: '设置成功'  })
+    }else{
+        req.json({ code: 0, msg: '设置失败'  })
+    }
+})
 
 
 

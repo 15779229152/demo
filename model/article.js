@@ -175,5 +175,24 @@ module.exports= class Article extends require ('./model'){
         })
 
     }
+    /**
+     * 更改热门设置
+     * @param {integer} id 文章编号
+     * @param {integer} hot 文章是否属于热门
+     * @returns 
+     */
+     static setHot(id,hot) {
+        return new Promise((resolve,reject) => {
+            let sql ='UPDATE article SET hot=? WHERE id=?'
+            this.query(sql,[hot,id]).then(results=>{
+                resolve(results.affectedRows)//affectedRows为受影响的行列
+
+            }).catch(err=>{
+                console.log(`更改热门失败：${err.message}`) 
+                reject(err)
+            })
+        })
+
+    }
     
     }
