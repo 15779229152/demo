@@ -44,7 +44,7 @@ articleApp.get('/sethot',[article.setHot],(req,res)=>{
  */
 articleApp.get('/add',[category.getList],(req,res)=>{
     let {user,categories} = req
-    res.render('admin/article/add',{user:user, categories:categories, code: ''})
+    res.render('admin/article/add',{user:user, categories:categories, code: 2})
 })
 //picture 上传(图片上传功能)
 articleApp.post('/picture',(req,res)=>{
@@ -69,6 +69,14 @@ articleApp.post('/add',[article.getadd,category.getList], (req,res)=>{
         res.render('admin/article/add',{user: user, categories:categories, code : false })//若上传失败则给一个code值为false(insertId不存在)
     }
    
+})
+//执行删除操作的功能路由
+articleApp.get('/del',article.getdelete,(req,res)=>{
+    if(req.affectedRows>0){
+        res.json({code :1,msg:'删除成功'})
+    }else{
+        res.json({code :2,msg:'删除失败'})
+    }
 })
 
 module.exports=articleApp

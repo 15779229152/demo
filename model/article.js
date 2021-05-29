@@ -212,4 +212,22 @@ module.exports= class Article extends require ('./model'){
         })
 
     }
+    /**
+     * //删除操作的功能
+     * @param {integer} id  文章编号
+     * @returns 
+     */
+    static getdelete(id) {
+        return new Promise((resolve,reject) => {
+            let sql ='DELETE FROM article WHERE id = ?'
+            this.query(sql,[id]).then(results=>{
+                resolve(results.affectedRows)//affectedRows为受影响的行列
+
+            }).catch(err=>{
+                console.log(`删除失败：${err.message}`) 
+                reject(err)
+            })
+        })
+        
+    }
     }

@@ -156,6 +156,16 @@ module.exports={
         }).catch(err => {
             next(err)
         })
+    },
+    getdelete: (req,res,next)=>{
+        let {id} = req.query
+        Article.getdelete(id).then(results=>{
+            req.affectedRows = results
+            next()
+        }).catch(err=>{
+            next(err)
+        })
     }
+    
 }
  

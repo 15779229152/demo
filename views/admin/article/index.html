@@ -88,8 +88,8 @@
                                                 <td>
                                                     <a href="./edit.html" class="text-primary" title="编辑"><i
                                                             class="iconfont icon-bianji"></i>编辑</a>
-                                                    <a href="#" onclick="return confirm('确定删除？')" class="text-danger"
-                                                        title="删除"><i class="iconfont icon-delete"></i>删除</a>
+                                                    <button onclick="del(<%=article.id%>)" class="btn btn-link text-danger"
+                                                        title="删除"><i class="iconfont icon-delete"></i>删除</button>
                                                 </td>
                                             </tr>
                                         <% }) %>
@@ -134,6 +134,17 @@
                     showToasts('失败','设置热门失败')
                 }
             })
+        }
+        function del(id){
+            console.log(id)
+            $.getJSON('/admin/article/del',{id:id},function(res){
+                if(res.code==1){
+                    showToasts('成功','删除成功')
+                }else{
+                    showToasts('失败','删除失败')
+                }
+            })
+
         }
     </script>
 </body>
