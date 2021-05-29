@@ -192,7 +192,24 @@ module.exports= class Article extends require ('./model'){
                 reject(err)
             })
         })
+        
+    }
+    /**
+     * 上传文章
+     * @param {object} article 文章对象
+     * @returns 
+     */
+    static getadd(article) {
+        return new Promise((resolve,reject) => {
+            let sql ='INSERT INTO article SET ?'
+            this.query(sql,[article]).then(results=>{
+                resolve(results.insertId)//insertId为添加文章后自动生成的id
+
+            }).catch(err=>{
+                console.log(`添加失败：${err.message}`) 
+                reject(err)
+            })
+        })
 
     }
-    
     }

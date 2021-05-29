@@ -39,7 +39,36 @@ articleApp.get('/sethot',[article.setHot],(req,res)=>{
         req.json({ code: 0, msg: '设置失败'  })
     }
 })
-
-
+/**
+ * 显示添加文章页
+ */
+articleApp.get('/add',[category.getList],(req,res)=>{
+    let {user,categories} = req
+    res.render('admin/article/add',{user:user, categories:categories, code: ''})
+})
+//picture 上传(图片上传功能)
+articleApp.post('/picture',(req,res)=>{
+    if(req.uploadUrl){
+        res.json({
+            uploaded:true,
+            url:req.uploadUrl
+        })
+    }else{
+        res.json({
+            uploaded:false,
+            err:{message:'上传失败'}
+        })
+    }
+})
+//文章上传功能
+articleApp.post('/add',[article.getadd,category.getList], (req,res)=>{
+    let {user,categories} = req
+    if(req.insertId){
+        res.render('admin/article/add',{user: user, categories:categories, code : true })//若上传成功则给一个code值为true(insertId存在)
+    }else{
+        res.render('admin/article/add',{user: user, categories:categories, code : false })//若上传失败则给一个code值为false(insertId不存在)
+    }
+   
+})
 
 module.exports=articleApp

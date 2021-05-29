@@ -96,7 +96,7 @@ if ($('#editor').length) {
         .create(document.querySelector('#editor'), {
             language: 'zh-cn',
             ckfinder: {
-                uploadUrl: '/topic/upload'
+                uploadUrl: '/admin/article/picture'
             }
         })
         .catch(error => {

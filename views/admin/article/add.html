@@ -27,7 +27,7 @@
                                 <h6 class="mb-0 align-self-center">发表文章</h6>
                             </div>
                             <div class="card-body">
-                                <form action="/article/add" method="POST" enctype="multipart/form-data">
+                                <form action="/admin/article/add" method="POST" enctype="multipart/form-data">
                                     <div class="form-row">
                                         <label for="title" class="col-2 text-center col-form-label">标题：</label>
                                         <input type="text" class="col-8 form-control" name="title" id="title" required>
@@ -37,9 +37,9 @@
                                         <label for="category_id" class="col-2 text-center col-form-label">类目：</label>
                                         <select name="category_id" id="category_id" class="col-8 form-control">
                                             <option value="0">请选择</option>
-                                            <option value="1">类目一</option>
-                                            <option value="1">类目二</option>
-                                            <option value="1">类目三</option>
+                                            <% categories.forEach(category => { %>
+                                                <option value="<%=category.id%>"><%=category.name%></option>
+                                            <% }) %>
                                         </select>
                                         <span class="col-2 col-form-label text-danger">* 必填项</span>
                                     </div>
@@ -63,7 +63,7 @@
                                     <div class="form-row mt-3">
                                         <label for="content" class="col-2 text-center col-form-label">缩略图：</label>
                                         <div class="col-8">
-                                            <input type="file" class="d-none" id="customFile" name="thumbnail"
+                                            <input type="file" class="d-none" id="customFile" name="upload"
                                                 accept="image/*">
                                             <label for="customFile" class="position-relative">
                                                 <img src="" data-src="holder.js/200x200?text=点击上传"
@@ -76,7 +76,7 @@
                                     <div class="form-row mt-3">
                                         <div class="offset-2">
                                             <input type="submit" value="提交" class="btn btn-success">
-                                            <a href="./index.html" class="btn btn-danger ml-3">取消</a>
+                                            <a href="/admin/article/" class="btn btn-danger ml-3">取消</a>
                                         </div>
                                     </div>
                                 </form>
@@ -95,7 +95,17 @@
     <script src="https://gw.alipayobjects.com/os/lib/antv/g2/3.5.12/dist/g2.min.js"></script>
     <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.2/dist/data-set.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
-    <script src="../static/js/public.js"></script>
+    <script src="/admin/js/public.js"></script>
+    <% if (code == true) { %>
+    <script>
+            showToasts('成功', '操作成功')
+    </script>
+    <% } else if(code == false){ %>
+    <script>
+            showToasts('失败', '操作失败')
+    </script>
+    <% } %>
+
     <script>
         $('form').submit(function () {
             showToasts('成功', '操作成功')

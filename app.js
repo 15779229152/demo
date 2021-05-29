@@ -1,7 +1,18 @@
 const express=require('express')
 const session = require('cookie-session')
+const multer = require('multer')
+const path = require('path')
+const fs   = require('fs')
 
 const app = express()
+
+//上传配置
+const upload = multer({
+    dest: './static/upload', //上传文件的存储目录
+    limits: {
+        fileSize:1024 * 1024 *2 //单个文件大小限制在2M内
+    }
+})
 
 app.set('view engine','html')
 app.set('view',`${__dirname}/views`)
@@ -34,6 +45,22 @@ app.use('/login',require('./router/login'))
 app.use('/register',require('./router/register'))
 //进入后台的权限验证
 app.use('/admin/?*',require('./middleware/auth').allowToAdmin)
+
+
+//上传图片操作
+app.post('/admin/*',upload.single('upload'),(req,res,next)=>{
+    //对象file为上传成功后的文件对象
+    let {file} = req
+    if (file) {
+        //file.originalname ==> 文件原名称(文件上传之前的原名称带后缀)
+        let extname = path.extname(file.originalname)
+        //file.path ==>上传后的文件路径(包含目录以及文件)
+        fs.renameSync(file.path,file.path + extname)
+        //file.filename ==>上传后的文件名(不带后缀)
+        req.uploadUrl = '/upload/' + file.filename + extname
+    }
+    next()
+})
 
 //调用后台首页
 app.use(/\/admin\/(index)?/,require('./router/admin/index'))

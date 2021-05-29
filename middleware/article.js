@@ -136,6 +136,26 @@ module.exports={
         }).catch(err => {
             next(err)
         })
+    },
+    /**
+     * 添加新文章 
+     */
+    getadd : (req,res,next)=>{
+        let {title,content,hot,category_id} = req.body//从body中取得需要的内容
+        //实行对象封装|
+        let article = {
+            title:title,
+            content:content,
+            hot:hot ? 1 : 0,//hou若为有效值就为1 无值则为0
+            category_id:category_id,
+            thumbnail : req.uploadUrl ? req.uploadUrl : null
+        }//将从body取得的内容封装进对象article中
+        Article.getadd(article).then(results=>{
+            req.insertId = results  //若文章上传成功 可以拿到一个insertId
+            next()
+        }).catch(err => {
+            next(err)
+        })
     }
 }
  

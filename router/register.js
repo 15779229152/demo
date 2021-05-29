@@ -17,7 +17,7 @@ registerApp.post('/registers',(req,res)=>{
     console.log(data);
     var _res = res;
     var sql_add = 'INSERT INTO user(username,password) VALUES(?,?)';//添加数据
-    var sql_select = 'SELECT * FROM user';//查询数据
+    var sql_select = 'SELECT * FROM user WHERE username = username AND password = password';//查询数据
 
     var ta = true;
     var p = connection.query(sql_select);
