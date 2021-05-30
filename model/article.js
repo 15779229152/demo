@@ -82,7 +82,7 @@ module.exports= class Article extends require ('./model'){
      */
     static getArticleById(id){
         return new Promise((resolve,reject) => {
-            let sql =`SELECT a.id,a.title,a.content,a.time,a.hits,a.category_id,c.name FROM article a,category c WHERE a.id = ? AND a.category_id =c.id`
+            let sql =`SELECT a.id,a.title,a.content,a.time,a.hits,a.category_id,c.name,a.thumbnail,a.hot FROM article a,category c WHERE a.id = ? AND a.category_id =c.id`
             this.query(sql,id).then(results=>{
              resolve(results[0])
             }).catch(err=>{
@@ -225,6 +225,23 @@ module.exports= class Article extends require ('./model'){
 
             }).catch(err=>{
                 console.log(`删除失败：${err.message}`) 
+                reject(err)
+            })
+        })
+        
+    }
+    /**
+     * 
+     * @param {object} article 所执行编辑的文章
+     * @returns 
+     */
+    static getedit(article) {
+        return new Promise((resolve,reject) => {
+            let sql =' UPDATE article SET title = ?, content = ?, hot = ?, category_id = ?, thumbnail = ? WHERE id=? '
+            this.query(sql,[article.title,article.content,article.hot,article.category_id,article.thumbnail,article.id]).then(results=>{
+                resolve(results.affectedRows)//affectedRows为受影响的行列
+            }).catch(err=>{
+                console.log(`编辑失败：${err.message}`) 
                 reject(err)
             })
         })

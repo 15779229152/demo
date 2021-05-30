@@ -79,4 +79,18 @@ articleApp.get('/del',article.getdelete,(req,res)=>{
     }
 })
 
+//修改(编辑文章)
+articleApp.get('/edit/:id',[category.getList,article.getArticleById],(req,res)=>{
+    let {user,categories,article} = req
+    res.render('admin/article/edit',{user: user,categories:categories,article:article,code: ''})
+})
+
+articleApp.post('/edit',article.getedit,(req,res)=>{
+    if(req.affectedRows > 0){
+        res.render('admin/Edit tips',{ code: true,title:'成功提示',message:'编辑成功',url:'/admin/article/'})
+    }else{
+        res.render('admin/Edit tips',{ code: false,title:'失败提示',message:'编辑失败',url:'/admin/article/edit/'+req.body.id })
+    }
+})
+
 module.exports=articleApp

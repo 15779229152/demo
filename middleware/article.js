@@ -157,9 +157,29 @@ module.exports={
             next(err)
         })
     },
+    //删除文章
     getdelete: (req,res,next)=>{
         let {id} = req.query
         Article.getdelete(id).then(results=>{
+            req.affectedRows = results
+            next()
+        }).catch(err=>{
+            next(err)
+        })
+    },
+    //编辑
+    getedit: (req,res,next)=>{
+        let { title,content,hot,category_id,thumbnail,id } = req.body
+        //将用户修改的各类数据封装进一个对象article中
+        let article = {
+            title:title,
+            content:content,
+            hot: hot ? 1 : 0,
+            category_id:category_id,
+            thumbnail: req.uploadUrl ? req.uploadUrl : thumbnail,//若req.yploadUrl中存在值那么表示图片已经重新上传，那么则取重新上传的图片
+            id:id
+        }
+        Article.getedit(article).then(results=>{
             req.affectedRows = results
             next()
         }).catch(err=>{
