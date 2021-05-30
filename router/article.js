@@ -14,7 +14,7 @@ const articleApp = express()
 articleApp.use(category.getList,auth.getUser)
 
 
-//文章列表功能
+//文章首页展示列表功能
 articleApp.get('/list/:id',[article.getListByCategoryId,category.getList,category.getCategoryById],(req,res)=>{
     // let{articles,categories,category,user} = req
     // res.render('list',{articles2:articles,category1:categories,category:Category,user:user})

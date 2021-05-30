@@ -10,7 +10,7 @@ module.exports= class Article extends require ('./model'){
      */
     static getHot(num){
         return new Promise((resolve,reject) => {
-            let sql ='SELECT id,title,content,`time`FROM article WHERE hot =1 LIMIT ?'
+            let sql ='SELECT id,title,content,`time`,thumbnail FROM article WHERE hot =1 LIMIT ?'
             this.query(sql,num).then(results=>{
                 resolve(results)
 
