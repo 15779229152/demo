@@ -27,7 +27,7 @@ module.exports= class Article extends require ('./model'){
      */
      static getList() {
         return new Promise((resolve,reject) => {
-            let sql ='SELECT id,title,content,`time` FROM article ORDER BY TIME DESC'
+            let sql ='SELECT id,title,content,`time`,thumbnail  FROM article ORDER BY TIME DESC'
             this.query(sql).then(results=>{
                 resolve(results)
 
@@ -120,7 +120,7 @@ module.exports= class Article extends require ('./model'){
         return new Promise((resolve,reject) => {
             let sql =`SELECT id,title FROM article WHERE id > ? ORDER BY id ASC LIMIT 1`
             this.query(sql,id).then(results=>{
-             resolve(results[0])//因为只获取一篇文章所以取0
+             resolve(results[0])
             }).catch(err=>{
                 console.log(`获取下一页文章失败：${err.message}`)
                 reject(err)

@@ -8,7 +8,7 @@ module.exports={
     //获取热门文章,then为调用方法
     // 方法中Article为引用的model（数据模型）中的article.js文件，以下其他方法也是类似
     getHot : (req,res,next)=>{
-        Article.getHot(3).then(results=>{
+        Article.getHot(4).then(results=>{
             req.hots = results
             next()
         }).catch(err => {

@@ -10,7 +10,7 @@ const articleApp =express()
 //article.gitCount 为之前获取文章总量所用方法 用于在分页功能上显示总文章数
 articleApp.get('/',article.gitCount, (req,res,next)=>{
     let {articleTotal}= req
-    let size = 3 //每页显示五条
+    let size = 3 //每页显示3条
     req.page = {}
     req.page.count = articleTotal
     req.page.total = Math.ceil( req.page.count / size)//页数
@@ -31,7 +31,7 @@ articleApp.get('/',article.gitCount, (req,res,next)=>{
     page.list = pageList
     res.render('admin/article/index',{user: user, page: page, categories: categories, category_id: category_id, hot: hot})
 })
-
+//设置改文章是否为热门
 articleApp.get('/sethot',[article.setHot],(req,res)=>{
     if(req.affectedRows > 0){//若取得的受影响的行列数大于零则返回json(成功)若无被影响数列则返回json(失败)
         res.json({ code: 1, msg: '设置成功'  })
