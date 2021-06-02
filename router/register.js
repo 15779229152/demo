@@ -15,7 +15,7 @@ registerApp.post('/registers',(req,res)=>{
     console.log(password)
     var data = [name,password];
     console.log(data);
-    var _res = res;
+    // var _res = res;
     var sql_add = 'INSERT INTO user(username,password) VALUES(?,?)';//添加数据
     var sql_select = 'SELECT * FROM user WHERE username = username AND password = password';//查询数据
 
@@ -24,7 +24,7 @@ registerApp.post('/registers',(req,res)=>{
     p.then(result => {
             result.forEach(item => {
                 if(item.password == password && item.username == name){
-                    res.send('您的账号已被注册，清重新注册！');
+                    res.render('register',{msg:'注册失败！用户名或密码已存在'})
                     ta = false;
                     return;
                 }
