@@ -32,7 +32,7 @@ registerApp.post('/registers',(req,res)=>{
             if(ta){
                 var t = connection.query(sql_add,data);
                 t.then(data => {
-                    res.redirect('/index');
+                    res.redirect('/index',{code :true,msg:'注册成功'});
                 })
             }
     })

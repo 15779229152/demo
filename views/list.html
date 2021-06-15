@@ -6,7 +6,7 @@
             <% articles2.forEach(articles3 =>{ %>
                 <div class="col my-3">
                     <div class="card h-100">
-                        <img src="holder.js/100px150" class="card-img-top" alt="...">
+                        <img src=" <%= articles3.thumbnail %> " data-src="holder.js/100px150" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><%= articles3.title %></h5>
                             <p class="card-text"><small class="text-muted"><%= articles3.time.toLocaleString() %></small></p>

@@ -10,7 +10,7 @@ module.exports= class Article extends require ('./model'){
      */
     static getHot(num){
         return new Promise((resolve,reject) => {
-            let sql ='SELECT id,title,content,`time`,thumbnail FROM article WHERE hot =1 LIMIT ?'
+            let sql ='SELECT id,title,content,`time`,thumbnail FROM article  WHERE hot =1 ORDER BY id DESC LIMIT ?'
             this.query(sql,num).then(results=>{
                 resolve(results)
 
@@ -27,7 +27,7 @@ module.exports= class Article extends require ('./model'){
      */
      static getList() {
         return new Promise((resolve,reject) => {
-            let sql ='SELECT id,title,content,`time`,thumbnail  FROM article ORDER BY TIME DESC'
+            let sql ='SELECT id,title,content,`time`,thumbnail FROM article ORDER BY TIME DESC'
             this.query(sql).then(results=>{
                 resolve(results)
 
@@ -45,7 +45,7 @@ module.exports= class Article extends require ('./model'){
      */
      static getListByCategoryId(id) {
         return new Promise((resolve,reject) => {
-            let sql ='SELECT id,title,content,`time` FROM article WHERE category_id = ? ORDER BY TIME DESC'
+            let sql ='SELECT id,title,content,`time`,thumbnail FROM article WHERE category_id = ? ORDER BY TIME DESC'
             this.query(sql,id).then(results=>{
                 resolve(results)
 
@@ -64,7 +64,7 @@ module.exports= class Article extends require ('./model'){
      */
     static getListByKeyword(keyword) {
         return new Promise((resolve,reject) => {
-            let sql ='SELECT id,title,content,`time` FROM article WHERE title LIKE ? ORDER BY TIME DESC'
+            let sql ='SELECT id,title,content,`time`,thumbnail FROM article WHERE title LIKE ? ORDER BY TIME DESC'
             this.query(sql,`%${keyword}%`).then(results=>{
                 resolve(results)
 
@@ -152,7 +152,7 @@ module.exports= class Article extends require ('./model'){
 
     }
     /**
-     * 
+     * 获取指定页文章列表
      * @param {integer} start 起始索引
      * @param {integer} size 查询条目数
      * @returns 
